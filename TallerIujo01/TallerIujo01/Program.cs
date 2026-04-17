@@ -7,6 +7,7 @@
  * Para cambiar esta plantilla use Herramientas | Opciones | Codificación | Editar Encabezados Estándar
  */
 using System;
+using System.IO;
 
 namespace TallerIujo01
 {
@@ -31,9 +32,22 @@ namespace TallerIujo01
 			
 			Console.WriteLine(string.Format("El ID es: {0} del usuario {1} descripcion {2} con la nota {3}", id, nombre, descripcion, nota));
 			
+			if (!Directory.Exists(rutaraiz))
+			{
+				Directory.CreateDirectory(rutaraiz);
+				Console.WriteLine("creado directorio correctamente");
+			}
+			
 			// Flujo de Archivos
 			
-			//string rutaraiz = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DatosIUJO")
+			string rutaraiz = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DatosIUJO");
+			string archivoTexto = Path.Combine(rutaraiz, "notas.txt");
+			Console.WriteLine(archivoTexto);
+			
+			using (StreamWriter sw = new StreamWriter(archivoTexto, true))
+			{
+				sw.WriteLine(string.Format(" ID : {0} nota : {1} {yyyy-MM-dd HH:mm}", id, nota, DateTime.Now));
+			}
 			
 			Console.Write("Press any key to continue . . . ");
 			Console.ReadKey(true);
