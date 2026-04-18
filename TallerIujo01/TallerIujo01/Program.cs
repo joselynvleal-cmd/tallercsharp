@@ -18,7 +18,7 @@ namespace TallerIujo01
 			Console.WriteLine("=== Taller 01 ===");
 			 
 			// 1. El dato del usuario
-			string registroUsuario = "	ID_77;	juanperez;	EVALUACION; 	95";
+			string registroUsuario = "	ID_77;	juanperez;	EXAMEN_FINAL.PDF; 	95";
 			
 			Console.WriteLine(registroUsuario);
 			string registroLimpio = registroUsuario.Trim();
@@ -30,23 +30,25 @@ namespace TallerIujo01
 			string descripcion = partes[2].Trim();
 			string nota = partes[3].Trim();
 			
-			Console.WriteLine(string.Format("El ID es: {0} del usuario {1} descripcion {2} con la nota {3}", id, nombre, descripcion, nota));
-			
-			if (!Directory.Exists(rutaraiz))
-			{
-				Directory.CreateDirectory(rutaraiz);
-				Console.WriteLine("creado directorio correctamente");
-			}
+			Console.WriteLine(string.Format("El ID es: {0} del usuario: {1} descripción: {2} con la nota: {3}", id, nombre, descripcion, nota));
 			
 			// Flujo de Archivos
 			
-			string rutaraiz = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DatosIUJO");
-			string archivoTexto = Path.Combine(rutaraiz, "notas.txt");
+			string rutaRaiz = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "DatosIUJO");
+			string rutaReportes = Path.Combine(rutaRaiz, "Reportes");
+			
+			if (!Directory.Exists(rutaReportes))
+			{
+				Directory.CreateDirectory(rutaReportes);
+				Console.WriteLine("Carpeta de reportes creada exitosamente");
+			}
+			
+			string archivoTexto = Path.Combine(rutaReportes, "notas.txt");
 			Console.WriteLine(archivoTexto);
 			
 			using (StreamWriter sw = new StreamWriter(archivoTexto, true))
 			{
-				sw.WriteLine(string.Format(" ID : {0} nota : {1} {yyyy-MM-dd HH:mm}", id, nota, DateTime.Now));
+				sw.WriteLine(string.Format("ESTUDIANTE: {0}	|	NOTA: {1}	|	FECHA: {2: yyyy-MM-dd HH:mm}", nombre, nota, DateTime.Now));
 			}
 			
 			Console.Write("Press any key to continue . . . ");
