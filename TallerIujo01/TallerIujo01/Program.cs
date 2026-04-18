@@ -56,7 +56,7 @@ namespace TallerIujo01
 			string datos = "usuario;clave123";
 			
 			string[] partesClave = datos.Split(';');
-			string clave = partes[1];
+			string clave = partesClave[1];
 			
 			if (clave.Contains("123"))
 			{
@@ -105,8 +105,25 @@ namespace TallerIujo01
 				Console.WriteLine("Ocurrió un error" + ex.Message);
 			}
 			
-			Console.Write("Press any key to continue . . . ");
-			Console.ReadKey(true);
-		}
-	}
+			// DESAFIO 3
+			
+			string rutaCarpeta = AppDomain.CurrentDomain.BaseDirectory;
+            string[] archivos = Directory.GetFiles(rutaCarpeta);
+
+            foreach (string archivo in archivos)
+            {
+                FileInfo info = new FileInfo(archivo);
+                if (info.Length > 5120)
+                {
+                    if (info.Name != "DesafiosVarios.exe" && info.Name != "avatar.jpg")
+                    {
+                        Console.WriteLine("Borrando archivo pesado: " + info.Name);
+                    }
+                }
+            }
+
+            Console.WriteLine("\nPresiona una tecla para salir...");
+            Console.ReadKey();
+        }
+    }
 }
